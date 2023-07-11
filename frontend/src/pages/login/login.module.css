@@ -1,0 +1,157 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+    gap: 1em;
+}
+
+.subtitle,
+.heading,
+.bottomText {
+    text-align: center;
+}
+
+.img {
+    width: 200px;
+}
+
+.heading {
+    font-size: 3rem;
+}
+
+.subtitle {
+    font-size: 2rem;
+    color: var(--black-70);
+}
+
+.form {
+    margin-top: 2em;
+}
+
+.form__container {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+.form__container_password {
+    position: relative;
+}
+
+.form__container__eye {
+    position: absolute;
+    transform: scale(3);
+    right: 1.7em;
+    bottom: 1.7em;
+    fill: var(--primary);
+}
+
+.form__container+.form__container {
+    margin-top: 1.5em;
+}
+
+.form__label {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.form__input {
+    font-size: 2rem;
+    padding: .5em;
+    border: none;
+    background-color: #E3E3E3;
+    border-radius: 15px;
+}
+
+.form__button {
+    background-color: var(--primary);
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    width: 100%;
+    padding: .3em .6em;
+    margin-top: 1.5em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.form__button:hover,
+.form__button:focus {
+    background-color: var(--primary-hover);
+}
+
+.bottomText {
+    font-size: 1.5rem;
+}
+
+.bottomText__link {
+    text-decoration: none;
+    color: var(--secondary);
+    font-weight: 500;
+}
+
+.bottomText__link:hover,
+.bottomText__link:focus {
+    text-decoration: underline;
+}
+
+@media(max-width: 515px) {
+    .img {
+        width: 120px;
+    }
+
+    .heading {
+        font-size: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1.75rem;
+    }
+
+    .form {
+        width: 95%;
+    }
+
+    .form__input,
+    .form__label,
+    .form__button {
+        font-size: 1.7rem;
+    }
+
+    .form__container__eye {
+        bottom: 1.3em;
+    }
+
+    .bottomText {
+        font-size: 1.2rem;
+    }
+}
+
+@media(max-width:360px) {
+    .img {
+        width: 100px;
+    }
+
+    .heading {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1.3rem;
+    }
+
+    .form__input,
+    .form__label,
+    .form__button {
+        font-size: 1.3rem;
+    }
+
+    .form__container__eye {
+        bottom: .8em;
+        right: 1.2em;
+        transform: scale(2.3);
+    }
+}
