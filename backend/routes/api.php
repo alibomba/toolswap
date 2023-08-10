@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,8 @@ Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/refresh', [AuthController::class, 'refresh']);
+
+Route::get('/location-autocomplete', [LocationController::class, 'getAutocomplete']);
 
 Route::middleware(['refresh', 'jwt.auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);

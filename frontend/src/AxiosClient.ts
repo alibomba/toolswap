@@ -25,7 +25,7 @@ axiosClient.interceptors.response.use(
     (error) => {
         const originalRequest = error.config;
 
-        if (error?.response.status === 401 && error?.response.data.message === 'Token expired') {
+        if (error?.response?.status === 401 && error?.response?.data?.message === 'Token expired') {
             return axiosClient({
                 method: 'post',
                 url: '/refresh'
@@ -40,8 +40,13 @@ axiosClient.interceptors.response.use(
                     return axiosClient(originalRequest);
                 })
                 .catch(err => {
-                    Promise.reject(err)
-                    //return something here to indicate to the component that it needs to logout the user and redirect them to the login page
+                    if (err?.response?.status === 401) {
+                        window.location.href = '/logowanie';
+                        localStorage.removeItem('token');
+                    }
+                    else {
+                        return Promise.reject(err);
+                    }
                 });
         }
 

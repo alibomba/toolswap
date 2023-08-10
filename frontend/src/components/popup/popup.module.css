@@ -1,0 +1,25 @@
+.popup {
+    font-size: 2rem;
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    color: white;
+    font-weight: bold;
+    padding: 1em 2em;
+    border-radius: 15px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: var(--transition);
+}
+
+.popup_active {
+    transform: scaleX(1);
+}
+
+.popup_good {
+    background-color: rgba(0, 200, 0, .7);
+}
+
+.popup_bad {
+    background-color: rgba(200, 0, 0, .7);
+}

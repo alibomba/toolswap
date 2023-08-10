@@ -56,9 +56,9 @@ class UserController extends Controller
                 'email' => $request['email'],
                 'password' => Hash::make($request['password'])
             ]);
-            return response(['error' => 'Pomyślnie utworzono użytkownika'], 200);
+            return response(['message' => 'Pomyślnie utworzono użytkownika'], 200);
         } catch(Exception $e) {
-            return response(['error' => 'Coś poszło nie tak!'], 500);
+            return response(['message' => 'Coś poszło nie tak!'], 500);
         }
     }
 }
