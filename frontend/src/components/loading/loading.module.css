@@ -1,0 +1,18 @@
+.loading {
+    width: 35em;
+    display: block;
+    margin-inline: auto;
+    margin-top: 10em;
+}
+
+@media(max-width:550px) {
+    .loading {
+        width: 25em;
+    }
+}
+
+@media(max-width:380px) {
+    .loading {
+        width: 20em;
+    }
+}

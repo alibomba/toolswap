@@ -11,4 +11,9 @@ class LocationController extends Controller
     {
         return Location::where('city', 'like', $request['phrase'].'%')->get('city');
     }
+
+    public function show(Location $location)
+    {
+        return $location;
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Like;
 use App\Models\Offer;
 use App\Models\Location;
 use Laravel\Sanctum\HasApiTokens;
@@ -58,6 +59,11 @@ class User extends Authenticatable implements JWTSubject
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 
     public function getJWTIdentifier()

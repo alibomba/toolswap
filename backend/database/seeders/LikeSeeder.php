@@ -2,17 +2,20 @@
 
 namespace Database\Seeders;
 
-use App\Models\Offer;
+use App\Models\Like;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class OfferSeeder extends Seeder
+class LikeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Offer::factory()->count(25)->create();
+        Like::create([
+            'user_id' => 1,
+            'offer_id' => 1
+        ]);
     }
 }

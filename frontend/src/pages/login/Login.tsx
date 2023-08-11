@@ -6,7 +6,7 @@ import axiosClient from '../../AxiosClient';
 import { AuthContext, ContextType } from '../../contexts/AuthProvider';
 
 import styles from './login.module.css';
-import Loading from '../../components/Loading';
+import Loading from '../../components/loading/Loading';
 
 const Login = () => {
     const navigate = useNavigate();

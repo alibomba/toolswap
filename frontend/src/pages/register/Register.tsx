@@ -5,7 +5,6 @@ import Error from '../../components/error/Error';
 
 import styles from '../login/login.module.css';
 import axiosClient from '../../AxiosClient';
-import axios from 'axios';
 import Popup from '../../components/popup/Popup';
 
 interface State {

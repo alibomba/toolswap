@@ -32,3 +32,15 @@ a {
   font-family: inherit;
   color: inherit;
 }
+
+.noResults {
+  color: white;
+  background-color: rgba(205, 0, 0, .7);
+  font-size: 3rem;
+  font-weight: bold;
+  width: fit-content;
+  padding: .5em 1em;
+  margin: 2em auto;
+  border-radius: 30px;
+  text-align: center;
+}

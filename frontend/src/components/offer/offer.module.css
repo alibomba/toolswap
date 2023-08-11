@@ -1,0 +1,147 @@
+.offer {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    width: 100%;
+    justify-content: space-between;
+    border: 3px solid var(--secondary);
+    border-radius: 30px;
+    padding: 1em;
+}
+
+.offer__left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5em;
+}
+
+.offer__leftContainer {
+    display: flex;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.offer__img {
+    width: 245px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.offer__category {
+    font-size: 1.3rem;
+    font-weight: 500;
+    max-width: 245px;
+    text-align: center;
+}
+
+.offer__middle {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+.offer__title {
+    font-size: 1.75rem;
+}
+
+.offer__price {
+    font-size: 1.5rem;
+}
+
+.offer__location {
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: .3em;
+    font-weight: 500;
+}
+
+.offer__location__icon {
+    color: var(--secondary);
+}
+
+.offer__date {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-top: 2em;
+}
+
+.offer__right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5em;
+}
+
+.offer__like {
+    font-size: 3rem;
+    display: grid;
+    place-items: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--secondary);
+}
+
+.offer__unavailable {
+    font-size: 1.7rem;
+    font-weight: 600;
+    border: 3px solid var(--secondary);
+    padding: .4em;
+    text-align: center;
+}
+
+@media(max-width:890px) {
+
+    .offer,
+    .offer__leftContainer {
+        flex-direction: column;
+    }
+
+    .offer__middle,
+    .offer__right {
+        align-items: center;
+        gap: 1em;
+    }
+
+    .offer__date {
+        margin-top: 0;
+    }
+
+    .offer__title {
+        text-align: center;
+    }
+}
+
+@media(max-width:500px) {
+    .offer__img {
+        width: 100%;
+    }
+
+    .offer__title {
+        font-size: 1.5rem;
+    }
+
+    .offer__price {
+        font-size: 1.3rem;
+    }
+
+    .offer__location {
+        font-size: 1.35rem;
+    }
+
+    .offer__date,
+    .offer__category {
+        font-size: 1.2rem;
+    }
+
+    .offer__like {
+        font-size: 2.7rem;
+    }
+
+    .offer__unavailable {
+        font-size: 1.4rem;
+    }
+}
