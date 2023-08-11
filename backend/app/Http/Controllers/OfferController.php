@@ -144,4 +144,23 @@ class OfferController extends Controller
             ]);
         }
     }
+
+    public function favorites()
+    {
+        $user = auth()->user();
+        $query = Offer::query();
+        if(count($user->likes) > 0) {
+            foreach($user->likes as $index => $like) {
+                if($index === 0) {
+                    $query->where('id', $like->offer_id);
+                } else {
+                    $query->orWhere('id', $like->offer_id);
+                }
+            }
+        } else {
+            $query->where('id', 'brak');
+        }
+
+        return $query->paginate(8);
+    }
 }

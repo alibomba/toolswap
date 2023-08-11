@@ -123,7 +123,7 @@ const Home = () => {
             {isLoading ? <Loading /> :
                 <>
                     <HomeSearch setOffers={setOffers} setAreOffersLoading={setAreOffersLoading} setSearchUrl={setSearchUrl} setPage={setPage} />
-                    <section className={styles.offers}>
+                    <main className={styles.offers}>
                         <h2 className={styles.offers__heading}>Najnowsze</h2>
                         <div className={styles.offers__list}>
                             {
@@ -160,7 +160,7 @@ const Home = () => {
                                 </button>
                             </div>
                         }
-                    </section>
+                    </main>
                 </>
             }
         </>

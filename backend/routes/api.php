@@ -44,4 +44,5 @@ Route::middleware(['refresh', 'jwt.auth'])->group(function () {
     Route::get('/auth', [AuthController::class, 'auth']);
     Route::get('/is-liked/{offer}', [OfferController::class, 'isLiked']);
     Route::post('/toggle-like/{offer}', [OfferController::class, 'toggleLike']);
+    Route::get('/favorites', [OfferController::class, 'favorites']);
 });
