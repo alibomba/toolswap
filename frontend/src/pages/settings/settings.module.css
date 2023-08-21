@@ -1,0 +1,37 @@
+.main {
+    padding: 2em 3em;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2em;
+}
+
+.nav__button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    font-weight: 600;
+    position: relative;
+    cursor: pointer;
+}
+
+.nav__button_active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 110%;
+    border-radius: 150px;
+    width: 100%;
+    height: 10px;
+    background-color: var(--secondary);
+}
+
+@media(max-width:500px) {
+    .main {
+        padding: 2em 1em;
+    }
+}

@@ -45,4 +45,13 @@ Route::middleware(['refresh', 'jwt.auth'])->group(function () {
     Route::get('/is-liked/{offer}', [OfferController::class, 'isLiked']);
     Route::post('/toggle-like/{offer}', [OfferController::class, 'toggleLike']);
     Route::get('/favorites', [OfferController::class, 'favorites']);
+    Route::get('/me', [AuthController::class, 'me']);
+    Route::put('/user', [UserController::class, 'update']);
+    Route::get('/my-offers', [OfferController::class, 'myOffers']);
+    Route::post('/toggle-availability/{offer}', [OfferController::class, 'toggleAvailability']);
+    Route::delete('/offers/{offer}', [OfferController::class, 'destroy']);
+    Route::post('/return-product/{offer_id}', [OfferController::class, 'returnProduct']);
+    Route::get('/to-return', [OfferController::class, 'toReturn']);
+    Route::get('/rental-status/{offer}', [OfferController::class, 'rentalStatus']);
+    Route::post('/accept-return/{offer}', [OfferController::class, 'acceptReturn']);
 });

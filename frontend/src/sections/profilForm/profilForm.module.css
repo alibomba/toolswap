@@ -1,0 +1,153 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5em;
+}
+
+.form__top {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+
+.form__imgLabel {
+    width: 165px;
+    height: 165px;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.form__nickname {
+    font-size: 2.4rem;
+    font-weight: bold;
+}
+
+.form__profileLink {
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: .5em;
+    text-decoration: none;
+    margin-top: .5em;
+}
+
+.form__fields {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+    max-width: 400px;
+}
+
+.form__container {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    position: relative;
+}
+
+.form__cityAutocomplete {
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    border-radius: 0 0 20px 20px;
+    border: 3px solid var(--primary);
+    border-top: none;
+}
+
+.form__cityAutocomplete__button {
+    font-size: 1.5rem;
+    padding: .3em .8em;
+    border: none;
+    background-color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.form__cityAutocomplete__button:hover,
+.form__cityAutocomplete__button:focus {
+    background-color: #DDD;
+}
+
+.form__cityAutocomplete__button:last-child {
+    border-radius: 0 0 20px 20px;
+}
+
+.form__label {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.form__input {
+    font-size: 1.8rem;
+    border: none;
+    border-bottom: 3px solid var(--secondary);
+}
+
+.form__input:focus {
+    outline: none;
+    border-bottom-color: var(--primary);
+}
+
+.form__button {
+    color: white;
+    background-color: var(--secondary);
+    border: none;
+    font-size: 1.8rem;
+    font-weight: 600;
+    border-radius: 150px;
+    padding: .3em .8em;
+    margin-top: 1em;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.form__button:hover,
+.form__button:focus {
+    background-color: var(--secondary-hover);
+}
+
+.form__error {
+    color: red;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+@media(max-width:680px) {
+    .form__top {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .form__profileLink {
+        gap: 0;
+        flex-direction: column;
+    }
+}
+
+@media(max-width:400px) {
+    .form__nickname {
+        font-size: 1.9rem;
+    }
+
+    .form__profileLink {
+        font-size: 1.2rem;
+    }
+
+    .form__label,
+    .form__input,
+    .form__button {
+        font-size: 1.4rem;
+    }
+
+    .form__error {
+        font-size: 1.3rem;
+    }
+}

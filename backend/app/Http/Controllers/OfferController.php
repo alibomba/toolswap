@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Like;
 use App\Models\Offer;
+use App\Models\Rental;
 use App\Models\Category;
 use App\Models\Location;
 use Illuminate\Http\Request;
@@ -162,5 +163,83 @@ class OfferController extends Controller
         }
 
         return $query->paginate(8);
+    }
+
+    public function myOffers()
+    {
+        $user = auth()->user();
+        $offers = $user->offers;
+        $query = Offer::query();
+        if(count($offers) > 0) {
+            foreach($offers as $index => $offer) {
+                if($index === 0) {
+                    $query->where('id', $offer->id);
+                } else {
+                    $query->orWhere('id', $offer->id);
+                }
+            }
+        } else {
+            $query->where('id', 'brak');
+        }
+
+        return $query->paginate(8);
+    }
+
+    public function toggleAvailability(Offer $offer)
+    {
+        $offer->available = !$offer->available;
+        $offer->save();
+
+        return response([
+            'message' => 'Zmieniono dostępność oferty'
+        ], 200);
+    }
+
+    public function destroy(Offer $offer)
+    {
+        return $offer->delete();
+    }
+
+    public function returnProduct($offer_id)
+    {
+        $rental = Rental::where('offer_id', $offer_id)->get();
+        if(count($rental) === 0) {
+            return response(['message' => 'Dana oferta nie jest wynajęta'], 400);
+        }
+        $rental = $rental[0];
+        $rental->status = 'pending';
+        //broadcast notification event to the owner
+        $rental->save();
+        return response(['message' => 'Wysłano wniosek oddania'], 200);
+    }
+
+    public function acceptReturn(Offer $offer)
+    {
+        return $offer;
+    }
+
+    public function toReturn()
+    {
+        $user = auth()->user();
+        $rentals = $user->rentals;
+        $query = Offer::query();
+        if(count($rentals) > 0) {
+            foreach($rentals as $index => $rental) {
+                if($index === 0) {
+                    $query->where('id', $rental->offer_id);
+                } else {
+                    $query->orWhere('id', $rental->offer_id);
+                }
+            }
+        } else {
+            $query->where('id', 'brak');
+        }
+
+        return $query->paginate(8);
+    }
+
+    public function rentalStatus(Offer $offer)
+    {
+        return $offer->rental->status;
     }
 }

@@ -39,4 +39,9 @@ class AuthController extends Controller
     {
         return response('', 200);
     }
+
+    public function me()
+    {
+        return auth()->user();
+    }
 }

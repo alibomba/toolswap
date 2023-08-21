@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Like;
 use App\Models\User;
+use App\Models\Rental;
 use App\Models\Category;
 use App\Models\Location;
 use Illuminate\Database\Eloquent\Model;
@@ -42,5 +43,10 @@ class Offer extends Model
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function rental()
+    {
+        return $this->hasOne(Rental::class);
     }
 }

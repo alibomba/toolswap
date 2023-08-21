@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Like;
 use App\Models\Offer;
+use App\Models\Rental;
 use App\Models\Location;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -27,6 +28,7 @@ class User extends Authenticatable implements JWTSubject
         'nickname',
         'phone_number',
         'location_id',
+        'profile_picture',
         'email',
         'password',
     ];
@@ -64,6 +66,11 @@ class User extends Authenticatable implements JWTSubject
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function rentals()
+    {
+        return $this->hasMany(Rental::class);
     }
 
     public function getJWTIdentifier()

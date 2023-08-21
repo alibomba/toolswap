@@ -6,7 +6,7 @@ import axiosClient from '../../AxiosClient';
 import axios from 'axios';
 import Error from '../../components/error/Error';
 import Offer from '../../components/offer/Offer';
-import { GrLinkPrevious, GrLinkNext } from 'react-icons/gr';
+import Pagination from '../../components/pagination/Pagination';
 
 import styles from './home.module.css';
 
@@ -102,18 +102,6 @@ const Home = () => {
         }
     }, [page]);
 
-    function prevPage(): void {
-        if (page !== 1) {
-            setPage(prev => prev - 1);
-        }
-    }
-
-    function nextPage(): void {
-        if (page !== offers?.last_page) {
-            setPage(prev => prev + 1);
-        }
-    }
-
     if (error) {
         return <Error>{error}</Error>
     }
@@ -141,6 +129,7 @@ const Home = () => {
                                                     price={offer.price}
                                                     available={offer.available}
                                                     created_at={offer.created_at}
+                                                    variant='standard'
                                                 />
                                             )
                                         })
@@ -148,18 +137,11 @@ const Home = () => {
                                         <p className='noResults'>Brak ofert</p>
                             }
                         </div>
-                        {
-                            offers?.last_page !== 1 &&
-                            <div className={styles.offers__pagination}>
-                                <button onClick={prevPage} title='Poprzednia strona' aria-disabled={page === 1} disabled={page === 1} className={`${styles.pagination__button} ${page === 1 && styles.pagination__button_disabled}`}>
-                                    <GrLinkPrevious />
-                                </button>
-                                <p className={styles.pagination__text}>{page}/{offers?.last_page}</p>
-                                <button onClick={nextPage} title='Następna strona' aria-disabled={page === offers?.last_page} disabled={page === offers?.last_page} className={`${styles.pagination__button} ${page === offers?.last_page && styles.pagination__button_disabled}`}>
-                                    <GrLinkNext />
-                                </button>
-                            </div>
-                        }
+                        <Pagination
+                            last_page={offers?.last_page}
+                            setPage={setPage}
+                            page={page}
+                        />
                     </main>
                 </>
             }

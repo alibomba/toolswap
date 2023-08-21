@@ -16,6 +16,7 @@ return new class () extends Migration {
             $table->string('phone_number');
             $table->unsignedBigInteger('location_id');
             $table->foreign('location_id')->references('id')->on('locations');
+            $table->mediumText('profile_picture')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamps();

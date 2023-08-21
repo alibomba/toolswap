@@ -17,7 +17,7 @@ class OfferFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => '1',
+            'user_id' => '2',
             'category_id' => fake()->numberBetween(1, 18),
             'location_id' => fake()->numberBetween(1, 306),
             'thumbnail' => 'https://picsum.photos/500/300',

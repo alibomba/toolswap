@@ -114,6 +114,7 @@ const Favorites = () => {
                                                         price={offer.price}
                                                         available={offer.available}
                                                         created_at={offer.created_at}
+                                                        variant='standard'
                                                     />
                                                 )
                                             })
