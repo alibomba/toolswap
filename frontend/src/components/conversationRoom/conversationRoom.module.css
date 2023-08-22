@@ -1,0 +1,76 @@
+.room {
+    width: 70%;
+    height: 30em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1em;
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    height: 30em;
+    overflow-y: scroll;
+    gap: 1em;
+}
+
+.message {
+    font-size: 1.5rem;
+    background-color: var(--secondary);
+    color: white;
+    font-weight: 500;
+    align-self: flex-start;
+    max-width: 40ch;
+    padding: .3em .8em;
+    border-radius: 30px;
+}
+
+.message_mine {
+    align-self: flex-end;
+    background-color: var(--primary);
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+    margin-top: 2em;
+}
+
+.form__input {
+    width: 90%;
+    font-size: 1.7rem;
+    padding: .3em;
+    border: 3px solid var(--secondary);
+    border-radius: 20px;
+}
+
+.form__button {
+    background: none;
+    border: none;
+    display: grid;
+    place-items: center;
+    font-size: 3rem;
+    color: var(--secondary);
+    cursor: pointer;
+}
+
+@media(max-width:800px) {
+    .room {
+        width: 100%;
+    }
+}
+
+@media(max-width:600px) {
+
+    .message,
+    .form__input {
+        font-size: 1.2rem;
+    }
+
+    .form__button {
+        font-size: 2rem;
+    }
+}

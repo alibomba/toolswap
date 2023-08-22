@@ -10,13 +10,12 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('rentals', function (Blueprint $table) {
+        Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('offer_id');
-            $table->foreign('offer_id')->references('id')->on('offers');
-            $table->string('status');//rented, pending
+            $table->unsignedBigInteger('user1_id');
+            $table->foreign('user1_id')->references('id')->on('users');
+            $table->unsignedBigInteger('user2_id');
+            $table->foreign('user2_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('rentals');
+        Schema::dropIfExists('rooms');
     }
 };

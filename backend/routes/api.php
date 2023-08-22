@@ -3,10 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,10 +51,18 @@ Route::middleware(['refresh', 'jwt.auth'])->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::put('/user', [UserController::class, 'update']);
     Route::get('/my-offers', [OfferController::class, 'myOffers']);
-    Route::post('/toggle-availability/{offer}', [OfferController::class, 'toggleAvailability']);
     Route::delete('/offers/{offer}', [OfferController::class, 'destroy']);
     Route::post('/return-product/{offer_id}', [OfferController::class, 'returnProduct']);
     Route::get('/to-return', [OfferController::class, 'toReturn']);
     Route::get('/rental-status/{offer}', [OfferController::class, 'rentalStatus']);
     Route::post('/accept-return/{offer}', [OfferController::class, 'acceptReturn']);
+    Route::put('/change-password', [AuthController::class, 'changePassword']);
+    Route::put('/change-email', [AuthController::class, 'changeEmail']);
+    Route::delete('/delete-account', [AuthController::class, 'deleteAccount']);
+    Route::get('/my-notifications', [NotificationController::class, 'index']);
+    Route::post('/set-notifications-to-seen', [NotificationController::class, 'setNotificationsToSeen']);
+    Route::get('/notifications-not-seen', [NotificationController::class, 'notSeen']);
+    Route::get('/my-rooms', [RoomController::class, 'index']);
+    Route::get('/messages-for-room/{room}', [MessageController::class, 'messagesForRoom']);
+    Route::post('/messages', [MessageController::class, 'store']);
 });

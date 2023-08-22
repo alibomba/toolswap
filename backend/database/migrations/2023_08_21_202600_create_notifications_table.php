@@ -10,13 +10,13 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('rentals', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
+            $table->string('content');
+            $table->string('link')->nullable();
+            $table->boolean('seen');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('offer_id');
-            $table->foreign('offer_id')->references('id')->on('offers');
-            $table->string('status');//rented, pending
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('rentals');
+        Schema::dropIfExists('notifications');
     }
 };

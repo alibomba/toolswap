@@ -29,7 +29,6 @@ const Offer = (props: Props) => {
     const { isAuthorized } = useContext<ContextType>(AuthContext);
     const [showComponent, setShowComponent] = useState<boolean>(true);
     const [wasDeleted, setWasDeleted] = useState<boolean>(false);
-    const [isAvailable, setIsAvailable] = useState<boolean>(props.available ? true : false);
     const [category, setCategory] = useState<string | null>(null);
     const [location, setLocation] = useState<string | null>(null);
     const [isLiked, setIsLiked] = useState<boolean | null>(null);
@@ -132,21 +131,6 @@ const Offer = (props: Props) => {
         }
     }
 
-    function toggleAvailability(e: React.ChangeEvent<HTMLInputElement>): void {
-        const checkbox = e.target as HTMLInputElement;
-        setIsAvailable(!checkbox.checked);
-
-        axiosClient({
-            method: 'post',
-            url: `/toggle-availability/${props.id}`
-        })
-            .then(res => {
-                setNotification(res.data.message);
-                setTimeout(() => setNotification(null), 4000);
-            })
-            .catch(err => setError('Coś poszło nie tak, spróbuj ponownie później...'));
-    }
-
     function deleteOffer(): void {
         const confirmation = window.confirm('Czy na pewno chcesz usunąć ofertę? Jest to nie odwracalne!');
 
@@ -216,10 +200,6 @@ const Offer = (props: Props) => {
                             {
                                 props.variant === 'myOffers' &&
                                 <div className={styles.offer__right_myOffers}>
-                                    <div className={styles.offer__row}>
-                                        <label className={styles.offer__label} htmlFor={`zajete${props.id}`}>Zajęte</label>
-                                        <input onChange={toggleAvailability} checked={!isAvailable} type="checkbox" className={styles.offer__checkbox} id={`zajete${props.id}`} />
-                                    </div>
                                     <Link to={`/edytuj/${props.id}`} title='Edytuj ofertę' className={styles.offer__myOffersButton}>
                                         <AiFillEdit className={styles.offer__edit} />
                                     </Link>

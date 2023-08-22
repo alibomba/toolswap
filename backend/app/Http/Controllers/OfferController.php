@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\Like;
 use App\Models\Offer;
 use App\Models\Rental;
 use App\Models\Category;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use App\Events\NotificationEvent;
 
 class OfferController extends Controller
 {
@@ -185,16 +187,6 @@ class OfferController extends Controller
         return $query->paginate(8);
     }
 
-    public function toggleAvailability(Offer $offer)
-    {
-        $offer->available = !$offer->available;
-        $offer->save();
-
-        return response([
-            'message' => 'Zmieniono dostępność oferty'
-        ], 200);
-    }
-
     public function destroy(Offer $offer)
     {
         return $offer->delete();
@@ -206,9 +198,18 @@ class OfferController extends Controller
         if(count($rental) === 0) {
             return response(['message' => 'Dana oferta nie jest wynajęta'], 400);
         }
+        $user = auth()->user();
+        $offer = Offer::find($offer_id);
         $rental = $rental[0];
         $rental->status = 'pending';
-        //broadcast notification event to the owner
+        $now = new DateTime();
+        broadcast(new NotificationEvent([
+            'content' => 'Użytkownik '.$user->nickname.' oddał Twój produkt '.$offer->title,
+            'link' => '/edytuj/'.$offer_id,
+            'seen' => false,
+            'user_id' => $offer->user_id,
+            'created_at' => $now->format('Y-m-d H:i:s')
+        ]))->toOthers();
         $rental->save();
         return response(['message' => 'Wysłano wniosek oddania'], 200);
     }

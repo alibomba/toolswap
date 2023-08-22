@@ -4,12 +4,17 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
+use App\Models\Notification;
 use Illuminate\Database\Seeder;
 use Database\Seeders\LikeSeeder;
+use Database\Seeders\RoomSeeder;
+use Database\Seeders\UserSeeder;
 use Database\Seeders\OfferSeeder;
 use Database\Seeders\RentalSeeder;
+use Database\Seeders\MessageSeeder;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\LocationSeeder;
+use Database\Seeders\NotificationSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,23 +28,11 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             OfferSeeder::class,
             LikeSeeder::class,
-            RentalSeeder::class
-        ]);
-
-        User::create([
-            'nickname' => 'AliGamer',
-            'phone_number' => '123123123',
-            'location_id' => '31',
-            'email' => 'ali.gamer@op.pl',
-            'password' => '$2y$10$7ad6rIHvKsJ4lN368hOrteqEO2mLIeyERziJ0OpPry1kirIrjeaKK'
-        ]);
-
-        User::create([
-            'nickname' => 'Wojciech',
-            'phone_number' => '123123123',
-            'location_id' => '98',
-            'email' => 'wojtek@gmail.com',
-            'password' => '$2y$10$7ad6rIHvKsJ4lN368hOrteqEO2mLIeyERziJ0OpPry1kirIrjeaKK'
+            RentalSeeder::class,
+            UserSeeder::class,
+            NotificationSeeder::class,
+            RoomSeeder::class,
+            MessageSeeder::class
         ]);
     }
 }

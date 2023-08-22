@@ -1,0 +1,36 @@
+.main {
+    height: 25em;
+    display: flex;
+}
+
+.conversations {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    border-right: 3px solid var(--primary);
+    height: 30em;
+    overflow-y: scroll;
+}
+
+.conversations__noResults {
+    background-color: rgba(205, 0, 0, .7);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    padding: .5em;
+}
+
+@media(max-width:800px) {
+    .main {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .conversations {
+        flex-direction: row;
+        height: auto;
+        width: 100%;
+        border-right: none;
+    }
+}

@@ -43,7 +43,6 @@ const Register = () => {
                 })
                 .catch(err => {
                     setError('Coś poszło nie tak, spróbuj ponownie później...');
-                    console.log(err);
                 })
         }
     }, [city]);
