@@ -1,0 +1,27 @@
+.stars {
+    display: flex;
+    align-items: center;
+}
+
+.star_big,
+.star_small {
+    color: #DAA520;
+}
+
+.star_big {
+    font-size: 2.3rem;
+}
+
+.star_small {
+    font-size: 1.8rem;
+}
+
+@media(max-width:630px) {
+    .star_big {
+        font-size: 1.9rem;
+    }
+
+    .star_small {
+        font-size: 1.4rem;
+    }
+}

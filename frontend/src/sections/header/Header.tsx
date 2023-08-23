@@ -125,7 +125,7 @@ const Header = ({ isAuthorized }: Props) => {
     return (
         <>
             <header className={styles.header}>
-                <Link to='/'><img className={styles.header__logo} src="img/favicon.png" alt="logo firmy" /></Link>
+                <Link to='/'><img className={styles.header__logo} src="/img/favicon.png" alt="logo firmy" /></Link>
                 <nav className={styles.header__right}>
                     {
                         isAuthorized ?
@@ -162,7 +162,7 @@ const Header = ({ isAuthorized }: Props) => {
             </header>
             <header className={styles.headerMobile}>
                 <div className={styles.headerMobile__top}>
-                    <Link onClick={navOff} to='/'><img className={styles.header__logo} src="img/favicon.png" alt="logo firmy" /></Link>
+                    <Link onClick={navOff} to='/'><img className={styles.header__logo} src="/img/favicon.png" alt="logo firmy" /></Link>
                     <button onClick={() => setIsNavActive(prev => !prev)} className={styles.headerMobile__hamburger}>
                         {isNavActive ? <IoMdClose /> : <GiHamburgerMenu />}
                     </button>

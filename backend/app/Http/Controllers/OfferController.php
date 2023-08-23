@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use App\Models\Like;
+use App\Models\User;
 use App\Models\Offer;
 use App\Models\Rental;
+use App\Models\Report;
+use App\Models\Review;
 use App\Models\Category;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Events\NotificationEvent;
+use App\Models\OfferSubscription;
 
 class OfferController extends Controller
 {
@@ -242,5 +246,146 @@ class OfferController extends Controller
     public function rentalStatus(Offer $offer)
     {
         return $offer->rental->status;
+    }
+
+    public function offerData(Offer $offer)
+    {
+        $location = [
+            'city' => $offer->location->city,
+            'voivodeship' => $offer->location->voivodeship
+        ];
+        $category = $offer->category->name;
+
+        return response([
+            'offer' => $offer,
+            'user' => $offer->user,
+            'location' => $location,
+            'category' => $category
+        ]);
+    }
+
+    public function addView(Offer $offer)
+    {
+        $offer->views = $offer->views + 1;
+        $offer->save();
+        return response(['views' => $offer->views]);
+    }
+
+    public function averageStarsOffer(Offer $offer)
+    {
+        if(count($offer->reviews) === 0) {
+            return response([
+                'average' => 1
+            ]);
+        }
+
+        $reviewsNumber = count($offer->reviews);
+        $sum = 0;
+        foreach($offer->reviews as $review) {
+            $sum += $review->stars;
+        }
+        $average = round($sum / $reviewsNumber, 0, PHP_ROUND_HALF_UP);
+        return response([
+            'average' => $average
+        ]);
+    }
+
+    public function averageStarsUser(User $user)
+    {
+        $offers = $user->offers;
+        if(count($offers) === 0) {
+            return response(['message' => 'Użytkownik nie posiada ofert'], 400);
+        }
+        $reviews = [];
+
+        foreach($offers as $offer) {
+            $offerReviews = $offer->reviews->toArray();
+            $reviews = array_merge($reviews, $offerReviews);
+        }
+
+        if(count($reviews) === 0) {
+            return response([
+                'average' => 1
+            ]);
+        }
+
+        $reviewsNumber = count($reviews);
+        $sum = 0;
+        foreach($reviews as $review) {
+            $sum += $review['stars'];
+        }
+        $average = round($sum / $reviewsNumber, 0, PHP_ROUND_HALF_UP);
+        return response([
+            'average' => $average
+        ]);
+    }
+
+    public function subscribe(Offer $offer)
+    {
+        $user = auth()->user();
+        $subscriptions = OfferSubscription::where('offer_id', $offer->id)->where('user_id', $user->id)->get();
+        if(count($subscriptions) > 0) {
+            return response(['message' => 'Już zasubskrybowano'], 400);
+        }
+
+        return OfferSubscription::create([
+            'offer_id' => $offer->id,
+            'user_id' => $user->id
+        ]);
+    }
+
+    public function isSubscribed(Offer $offer)
+    {
+        $user = auth()->user();
+        $subscriptions = OfferSubscription::where('offer_id', $offer->id)->where('user_id', $user->id)->get();
+        if(count($subscriptions) > 0) {
+            return response([
+                'isSubscribed' => true
+            ]);
+        } else {
+            return response([
+                'isSubscribed' => false
+            ]);
+        }
+    }
+
+    public function sendReview(Offer $offer, Request $request)
+    {
+        $request->validate([
+            'stars' => 'required|numeric'
+        ]);
+
+        $user = auth()->user();
+
+        if($offer->user_id === $user->id) {
+            return response([
+                'message' => 'Nie możesz wystawić opinii samemu sobie'
+            ], 400);
+        }
+
+        Review::create([
+            'offer_id' => $offer->id,
+            'stars' => $request['stars']
+        ]);
+
+        return response([
+            'message' => 'Wystawiono opinię'
+        ]);
+    }
+
+    public function sendReport(Offer $offer)
+    {
+        $user = auth()->user();
+        $reports = Report::where('offer_id', $offer->id)->where('user_id', $user->id)->get();
+        if(count($reports) > 0) {
+            return response([
+                'message' => 'Możesz wysłać tylko jedno zgłoszenie na ofertę'
+            ], 400);
+        }
+
+        return Report::create([
+            'offer_id' => $offer->id,
+            'user_id' => $user->id
+        ]);
     }
 }

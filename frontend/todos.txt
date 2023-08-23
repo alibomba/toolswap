@@ -1,0 +1,1 @@
+-przy togglowaniu zajetosci w edycji oferty modal ze wskazaniem uzytkownika ktory wynajmuje, broadcast eventu do wszystkich ktorzy zasubskrybowali ta oferte i usuniecie wszystkich subskrybcji ktore zostaly zużyte

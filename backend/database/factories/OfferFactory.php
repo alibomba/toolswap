@@ -20,9 +20,9 @@ class OfferFactory extends Factory
             'user_id' => '2',
             'category_id' => fake()->numberBetween(1, 18),
             'location_id' => fake()->numberBetween(1, 306),
-            'thumbnail' => 'https://picsum.photos/500/300',
+            'thumbnail' => 'https://picsum.photos/1000/700',
             'title' => fake()->word().' '.fake()->word(),
-            'description' => fake()->paragraph(),
+            'description' => fake()->paragraph(20),
             'price' => fake()->numberBetween(20, 500),
             'available' => fake()->boolean()
         ];

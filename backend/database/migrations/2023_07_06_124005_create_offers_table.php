@@ -20,9 +20,10 @@ return new class () extends Migration {
             $table->foreign('location_id')->references('id')->on('locations');
             $table->string('thumbnail')->nullable();
             $table->string('title', 35);
-            $table->string('description', 300);
+            $table->longText('description', 300);
             $table->float('price');
             $table->boolean('available')->default(true);
+            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }

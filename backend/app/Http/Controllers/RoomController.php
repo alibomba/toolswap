@@ -54,4 +54,34 @@ class RoomController extends Controller
 
         return response($response);
     }
+
+    public function hasConversationWith(User $user)
+    {
+        $me = auth()->user();
+
+        $variant1 = Room::where('user1_id', $user->id)->where('user2_id', $me->id)->get();
+        $variant2 = Room::where('user2_id', $user->id)->where('user1_id', $me->id)->get();
+
+        if(count($variant1) > 0 || count($variant2) > 0) {
+            return response([
+                'hasConversation' => true
+            ]);
+        } else {
+            return response([
+                'hasConversation' => false
+            ]);
+        }
+    }
+
+    public function createConversation(User $user)
+    {
+        $me = auth()->user();
+        if($me->id === $user->id) {
+            return response(['message' => 'Nie możesz utworzyć konwersacji z samym sobą'], 400);
+        }
+        return Room::create([
+            'user1_id' => $user->id,
+            'user2_id' => $me->id
+        ]);
+    }
 }

@@ -6,9 +6,11 @@ namespace App\Models;
 use App\Models\Like;
 use App\Models\Offer;
 use App\Models\Rental;
+use App\Models\Report;
 use App\Models\Message;
 use App\Models\Location;
 use App\Models\Notification;
+use App\Models\OfferSubscription;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
@@ -83,6 +85,16 @@ class User extends Authenticatable implements JWTSubject
     public function messages()
     {
         return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(OfferSubscription::class);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
     }
 
     public function getJWTIdentifier()

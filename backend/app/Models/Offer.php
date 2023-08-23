@@ -5,8 +5,11 @@ namespace App\Models;
 use App\Models\Like;
 use App\Models\User;
 use App\Models\Rental;
+use App\Models\Report;
+use App\Models\Review;
 use App\Models\Category;
 use App\Models\Location;
+use App\Models\OfferSubscription;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -48,5 +51,20 @@ class Offer extends Model
     public function rental()
     {
         return $this->hasOne(Rental::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(OfferSubscription::class);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
     }
 }

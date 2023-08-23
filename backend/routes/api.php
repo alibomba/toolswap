@@ -42,6 +42,14 @@ Route::get('/phrase-search', [OfferController::class, 'phraseSearch']);
 
 Route::get('/search', [OfferController::class, 'search']);
 
+Route::get('/offer-data/{offer}', [OfferController::class, 'offerData']);
+
+Route::post('/add-view/{offer}', [OfferController::class, 'addView']);
+
+Route::get('/average-stars-offer/{offer}', [OfferController::class, 'averageStarsOffer']);
+
+Route::get('/average-stars-user/{user}', [OfferController::class, 'averageStarsUser']);
+
 Route::middleware(['refresh', 'jwt.auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/auth', [AuthController::class, 'auth']);
@@ -65,4 +73,10 @@ Route::middleware(['refresh', 'jwt.auth'])->group(function () {
     Route::get('/my-rooms', [RoomController::class, 'index']);
     Route::get('/messages-for-room/{room}', [MessageController::class, 'messagesForRoom']);
     Route::post('/messages', [MessageController::class, 'store']);
+    Route::post('/subscribe/{offer}', [OfferController::class, 'subscribe']);
+    Route::get('/is-subscribed/{offer}', [OfferController::class, 'isSubscribed']);
+    Route::get('/has-conversation-with/{user}', [RoomController::class, 'hasConversationWith']);
+    Route::post('/create-conversation/{user}', [RoomController::class, 'createConversation']);
+    Route::post('/send-review/{offer}', [OfferController::class, 'sendReview']);
+    Route::post('/send-report/{offer}', [OfferController::class, 'sendReport']);
 });
