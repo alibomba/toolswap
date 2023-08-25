@@ -16,7 +16,7 @@ return new class () extends Migration {
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('offer_id');
             $table->foreign('offer_id')->references('id')->on('offers');
-            $table->string('status');//rented, pending
+            $table->string('status')->default('rented');
             $table->timestamps();
         });
     }

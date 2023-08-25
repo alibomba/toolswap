@@ -1,0 +1,135 @@
+.main {
+    padding: 2em 3em;
+}
+
+.main__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+    border: 3px solid var(--secondary);
+    padding: 3em;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.header__top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3em;
+}
+
+.header__img {
+    width: 135px;
+    height: 135px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.header__name {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.header__paragraph {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.header__buttons {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+
+.header__callButton,
+.header__messageButton,
+.header__editProfile {
+    font-size: 1.75rem;
+    border: none;
+    padding: .3em .8em;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.header__callButton,
+.header__editProfile {
+    background-color: var(--secondary);
+}
+
+.header__callButton:hover,
+.header__callButton:focus,
+.header__editProfile:hover,
+.header__editProfile:focus {
+    background-color: var(--secondary-hover);
+}
+
+.header__messageButton {
+    background-color: var(--primary);
+}
+
+.header__messageButton:hover,
+.header__messageButton:focus {
+    background-color: var(--primary-hover);
+}
+
+.main__main {
+    margin-top: 8em;
+}
+
+.main__heading {
+    font-size: 2.5rem;
+    margin-bottom: 1em;
+}
+
+.main__offers {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+}
+
+@media(max-width:850px) {
+
+    .header__top,
+    .header__buttons {
+        flex-direction: column;
+    }
+}
+
+@media(max-width:500px) {
+    .main {
+        padding: 2em 1em;
+    }
+
+    .main__header {
+        padding: 3em 1em;
+    }
+
+    .header__img {
+        width: 110px;
+        height: 110px;
+    }
+
+    .header__name,
+    .header__paragraph {
+        font-size: 1.6rem;
+    }
+
+    .header__messageButton,
+    .header__callButton,
+    .header__editProfile {
+        font-size: 1.3rem;
+    }
+
+    .main__heading {
+        font-size: 1.9rem;
+    }
+}

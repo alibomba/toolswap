@@ -14,6 +14,7 @@ use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Events\NotificationEvent;
 use App\Models\OfferSubscription;
+use Illuminate\Support\Facades\Storage;
 
 class OfferController extends Controller
 {
@@ -109,7 +110,7 @@ class OfferController extends Controller
                 $query->where('id', 'brak');
             }
         }
-        return $query->paginate(8);
+        return $query->orderBy('created_at', 'DESC')->paginate(8);
     }
 
     public function isLiked(Offer $offer)
@@ -168,7 +169,7 @@ class OfferController extends Controller
             $query->where('id', 'brak');
         }
 
-        return $query->paginate(8);
+        return $query->orderBy('created_at', 'DESC')->paginate(8);
     }
 
     public function myOffers()
@@ -188,7 +189,7 @@ class OfferController extends Controller
             $query->where('id', 'brak');
         }
 
-        return $query->paginate(8);
+        return $query->orderBy('created_at', 'DESC')->paginate(8);
     }
 
     public function destroy(Offer $offer)
@@ -240,7 +241,7 @@ class OfferController extends Controller
             $query->where('id', 'brak');
         }
 
-        return $query->paginate(8);
+        return $query->orderBy('created_at', 'DESC')->paginate(8);
     }
 
     public function rentalStatus(Offer $offer)
@@ -387,5 +388,213 @@ class OfferController extends Controller
             'offer_id' => $offer->id,
             'user_id' => $user->id
         ]);
+    }
+
+    public function userOffers(User $user)
+    {
+        return Offer::where('user_id', $user->id)->orderBy('created_at', 'DESC')->paginate(8);
+    }
+
+    private function validationMessages()
+    {
+        return [
+            'category.required' => 'Kategoria jest wymagana',
+            'location.required' => 'Lokalizacja jest wymagana',
+            'thumbnail.required' => 'Miniatura jest wymagana',
+            'thumbnail.file' => 'Miniatura musi być plikiem',
+            'thumbnail.image' => 'Miniatura musi być obrazem',
+            'thumbnail.max' => 'Miniatura może mieć maksymalnie 4MB',
+            'title.required' => 'Tytuł jest wymagany',
+            'title.max' => 'Tytuł może mieć maksymalnie :max znaków',
+            'description.required' => 'Opis jest wymagany',
+            'description.max' => 'Opis może mieć maksymalnie :max znaków',
+            'price.required' => 'Cena jest wymagana',
+            'price.numeric' => 'Cena musi być liczbą',
+            'string' => 'Wszystkie pola oprócz ceny i miniatury muszą być tekstem'
+        ];
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'category' => 'required|string',
+            'location' => 'required|string',
+            'thumbnail' => 'required|file|image|max:4096',
+            'title' => 'required|string|max:35',
+            'description' => 'required|string|max:300',
+            'price' => 'required|numeric'
+        ], $this->validationMessages());
+
+        $categories = Category::where('name', $request['category'])->get();
+        if(count($categories) === 0) {
+            return response(['message' => 'Podana kategoria nie istnieje'], 422);
+        } else {
+            $category_id = $categories[0]->id;
+        }
+
+        $locations = Location::where('city', $request['location'])->get();
+        if(count($locations) === 0) {
+            return response(['message' => 'Podane miasto nie istnieje w bazie danych'], 422);
+        } else {
+            $location_id = $locations[0]->id;
+        }
+
+        if($request->hasFile('thumbnail')) {
+            $path = $request->file('thumbnail')->store('public/offers');
+            $url = basename(Storage::url($path));
+        } else {
+            return response(['message' => 'Miniatura jest wymagana'], 422);
+        }
+
+        $user = auth()->user();
+
+        Offer::create([
+            'user_id' => $user->id,
+            'category_id' => $category_id,
+            'location_id' => $location_id,
+            'thumbnail' => $url,
+            'title' => $request['title'],
+            'description' => $request['description'],
+            'price' => $request['price']
+        ]);
+
+        return response([
+            'message' => 'Oferta została utworzona'
+        ], 201);
+    }
+
+    public function update(Offer $offer, Request $request)
+    {
+        $user = auth()->user();
+        if($user->id !== $offer->user_id) {
+            return response(['message' => 'Nie możesz edytować nie swojej oferty'], 403);
+        }
+
+        $request->validate([
+            'category' => 'required|string',
+            'location' => 'required|string',
+            'thumbnail' => 'file|image|max:4096',
+            'title' => 'required|string|max:35',
+            'description' => 'required|string|max:300',
+            'price' => 'required|numeric'
+        ], $this->validationMessages());
+
+        $categories = Category::where('name', $request['category'])->get();
+        if(count($categories) === 0) {
+            return response(['message' => 'Podana kategoria nie istnieje'], 422);
+        } else {
+            $category_id = $categories[0]->id;
+        }
+
+        $locations = Location::where('city', $request['location'])->get();
+        if(count($locations) === 0) {
+            return response(['message' => 'Podane miasto nie istnieje w bazie danych'], 422);
+        } else {
+            $location_id = $locations[0]->id;
+        }
+
+        $url = null;
+        if($request->hasFile('thumbnail')) {
+            $path = $request->file('thumbnail')->store('public/offers');
+            $url = basename(Storage::url($path));
+        }
+
+        $offer->category_id = $category_id;
+        $offer->location_id = $location_id;
+        if(!is_null($url)) {
+            $offer->thumbnail = $url;
+        }
+        $offer->title = $request['title'];
+        $offer->description = $request['description'];
+        $offer->price = $request['price'];
+        $offer->save();
+
+        return response([
+            'message' => 'Oferta została zapisana'
+        ], 200);
+    }
+
+    public function isOfferMine(Offer $offer)
+    {
+        $user = auth()->user();
+        if($user->id === $offer->user_id) {
+            return response('', 204);
+        } else {
+            return response([
+                'message' => 'Nie możesz edytować nie swojej oferty'
+            ], 403);
+        }
+    }
+
+    public function offerMakeAvailable(Offer $offer)
+    {
+        $user = auth()->user();
+        if($user->id !== $offer->user_id) {
+            return response([
+                'message' => 'Nie możesz zmienić widoczności nie swojej oferty'
+            ], 403);
+        }
+        if($offer->available) {
+            return response([
+                'message' => 'Oferta jest już aktywna'
+            ], 400);
+        }
+        $offer->available = true;
+        $offer->save();
+        $offer->rental->delete();
+        $subscriptions = $offer->subscriptions;
+        $now = new DateTime();
+        if(count($subscriptions) > 0) {
+            foreach($subscriptions as $subscription) {
+                broadcast(new NotificationEvent([
+                    'content' => 'Oferta '.$offer->title.' jest już dostępna',
+                    'link' => '/oferta/'.$offer->id,
+                    'seen' => false,
+                    'user_id' => $subscription->user_id,
+                    'created_at' => $now->format('Y-m-d H:i:s')
+                ]))->toOthers();
+                $subscription->delete();
+            }
+        }
+
+        return response([
+            'message' => 'Oferta została zmieniona'
+        ], 200);
+    }
+
+    public function offerMakeUnavailable(Offer $offer, Request $request)
+    {
+        $user = auth()->user();
+        if($user->id !== $offer->user_id) {
+            return response([
+                'message' => 'Nie możesz zmienić widoczności nie swojej oferty'
+            ], 403);
+        }
+
+        $request->validate([
+            'nickname' => 'required|string'
+        ], [
+            'nickname.required' => 'Nazwa użytkownika jest wymagana',
+            'nickname.string' => 'Nazwa użytkownika musi być tekstem'
+        ]);
+
+        $users = User::where('nickname', $request['nickname'])->get();
+        if(count($users) === 0) {
+            return response([
+                'message' => 'Podany użytkownik nie istnieje'
+            ], 422);
+        }
+
+        Rental::create([
+            'user_id' => $users[0]->id,
+            'offer_id' => $offer->id
+        ]);
+
+        $offer->available = false;
+        $offer->save();
+
+        return response([
+            'message' => 'Oferta została zmieniona'
+        ], 200);
     }
 }

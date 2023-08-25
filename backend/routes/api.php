@@ -50,6 +50,10 @@ Route::get('/average-stars-offer/{offer}', [OfferController::class, 'averageStar
 
 Route::get('/average-stars-user/{user}', [OfferController::class, 'averageStarsUser']);
 
+Route::get('/user/{user}', [UserController::class, 'getUser']);
+
+Route::get('/user-offers/{user}', [OfferController::class, 'userOffers']);
+
 Route::middleware(['refresh', 'jwt.auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/auth', [AuthController::class, 'auth']);
@@ -79,4 +83,11 @@ Route::middleware(['refresh', 'jwt.auth'])->group(function () {
     Route::post('/create-conversation/{user}', [RoomController::class, 'createConversation']);
     Route::post('/send-review/{offer}', [OfferController::class, 'sendReview']);
     Route::post('/send-report/{offer}', [OfferController::class, 'sendReport']);
+    Route::get('/is-profile-mine/{user}', [UserController::class, 'isProfileMine']);
+    Route::post('/offers', [OfferController::class, 'store']);
+    Route::put('/offers/{offer}', [OfferController::class, 'update']);
+    Route::get('/my-location', [LocationController::class, 'myLocation']);
+    Route::get('/is-offer-mine/{offer}', [OfferController::class, 'isOfferMine']);
+    Route::post('/offer-make-available/{offer}', [OfferController::class, 'offerMakeAvailable']);
+    Route::post('/offer-make-unavailable/{offer}', [OfferController::class, 'offerMakeUnavailable']);
 });

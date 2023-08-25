@@ -107,4 +107,23 @@ class UserController extends Controller
             'message' => 'Zaktualizowano użytkownika'
         ], 200);
     }
+
+    public function getUser(User $user)
+    {
+        return $user;
+    }
+
+    public function isProfileMine(User $user)
+    {
+        $me = auth()->user();
+        if($me->id === $user->id) {
+            return response([
+                'isMine' => true
+            ]);
+        } else {
+            return response([
+                'isMine' => false
+            ]);
+        }
+    }
 }

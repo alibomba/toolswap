@@ -172,7 +172,7 @@ const Offer = (props: Props) => {
                             <div className={styles.offer__leftContainer}>
                                 <div className={styles.offer__left}>
                                     <Link to={`/oferta/${props.id}`}>
-                                        <img className={styles.offer__img} src={props.thumbnail} alt="miniatura oferty" />
+                                        <img className={styles.offer__img} src={`${process.env.REACT_APP_API_URL}/storage/offers/${props.thumbnail}`} alt="miniatura oferty" />
                                     </Link>
                                     <p className={styles.offer__category}>{category}</p>
                                 </div>

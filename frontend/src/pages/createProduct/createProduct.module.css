@@ -1,0 +1,160 @@
+.form {
+    padding: 2em 3em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2em;
+}
+
+.form__inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .5em;
+    position: relative;
+}
+
+.form__cityAutocomplete {
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    border: 3px solid var(--secondary);
+    border-top: none;
+    border-radius: 0 0 20px 20px;
+}
+
+.form__cityAutocomplete__button {
+    font-size: 1.5rem;
+    padding: .5em;
+    font-weight: 500;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.form__cityAutocomplete__button:hover,
+.form__cityAutocomplete__button:focus {
+    background-color: #DDD;
+}
+
+.form__cityAutocomplete__button:last-child {
+    border-radius: 0 0 20px 20px;
+}
+
+.form__label {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.form__input,
+.form__textarea,
+.form__select {
+    font-size: 2rem;
+    padding: .3em;
+    border: 3px solid var(--secondary);
+    resize: none;
+}
+
+.form__input {
+    border: none;
+    border-bottom: 3px solid var(--secondary);
+}
+
+.form__thumbnailLabel {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border: 3px solid var(--secondary);
+    cursor: pointer;
+}
+
+.form__button {
+    font-size: 2rem;
+    padding: .3em .8em;
+    font-weight: 600;
+    color: white;
+    background-color: var(--secondary);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.form__button:hover,
+.form__button:focus {
+    background-color: var(--secondary-hover);
+}
+
+.form__error {
+    font-size: 2rem;
+    color: red;
+    font-weight: 600;
+}
+
+.available__text {
+    font-size: 2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: .5em;
+}
+
+.available__checkbox {
+    transform: scale(2);
+}
+
+.available__form {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #DDD;
+    gap: 1em;
+    padding: 3em;
+    border-radius: 30px;
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, .5);
+    z-index: 100;
+}
+
+.available__overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, .3);
+    z-index: 99;
+}
+
+.available__form>.form__input {
+    background-color: #DDD;
+}
+
+@media(max-width:700px) {
+    .form {
+        padding: 2em 1em;
+    }
+
+    .form__select,
+    .form__textarea {
+        width: 100%;
+    }
+}
+
+@media(max-width:460px) {
+    .form__input {
+        width: 100%;
+    }
+
+    .form__label,
+    .form__input,
+    .form__textarea,
+    .form__select,
+    .form__button,
+    .form__error {
+        font-size: 1.5rem;
+    }
+}

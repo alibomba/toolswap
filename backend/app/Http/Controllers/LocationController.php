@@ -16,4 +16,10 @@ class LocationController extends Controller
     {
         return $location;
     }
+
+    public function myLocation()
+    {
+        $user = auth()->user();
+        return $user->location->city;
+    }
 }

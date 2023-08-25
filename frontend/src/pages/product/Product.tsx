@@ -210,7 +210,6 @@ const Product = () => {
                         })
                             .then(res => {
                                 navigate('/wiadomosci');
-                                console.log('wasd');
                             })
                             .catch(err => {
                                 if (err?.response?.status === 400) {
@@ -317,7 +316,7 @@ const Product = () => {
                                 </div>
                             }
                             <div className={styles.header__metadata}>
-                                <img className={styles.metadata__img} src={offer && offer.thumbnail} alt={offer && `miniatura oferty ${offer.title}`} />
+                                <img className={styles.metadata__img} src={offer && `${process.env.REACT_APP_API_URL}/storage/offers/${offer.thumbnail}`} alt={offer && `miniatura oferty ${offer.title}`} />
                                 <div className={styles.metadata__right}>
                                     <div className={styles.metadata__userInfo}>
                                         <img className={styles.userInfo__img} src={user && user.profile_picture ? `${process.env.REACT_APP_API_URL}/storage/pfp/${user.profile_picture}` : '/img/default-pfp.png'} alt={user && `zdjęcie profilowe użytkownika ${user.nickname}`} />

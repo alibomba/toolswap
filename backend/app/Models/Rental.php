@@ -13,7 +13,8 @@ class Rental extends Model
 
     protected $fillable = [
         'user_id',
-        'offer_id'
+        'offer_id',
+        'status'
     ];
 
     public function user()
