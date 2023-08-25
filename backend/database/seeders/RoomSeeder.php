@@ -13,29 +13,6 @@ class RoomSeeder extends Seeder
      */
     public function run(): void
     {
-        Room::create([
-            'user1_id' => 1,
-            'user2_id' => 2
-        ]);
 
-        Room::create([
-            'user1_id' => 1,
-            'user2_id' => 3
-        ]);
-
-        Room::create([
-            'user1_id' => 1,
-            'user2_id' => 4
-        ]);
-
-        Room::create([
-            'user1_id' => 2,
-            'user2_id' => 3
-        ]);
-
-        Room::create([
-            'user1_id' => 4,
-            'user2_id' => 3
-        ]);
     }
 }

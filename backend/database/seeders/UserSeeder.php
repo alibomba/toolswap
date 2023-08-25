@@ -30,14 +30,6 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'nickname' => 'Ela',
-            'phone_number' => '123123123',
-            'location_id' => '192',
-            'email' => 'ela@gmail.com',
-            'password' => '$2y$10$7ad6rIHvKsJ4lN368hOrteqEO2mLIeyERziJ0OpPry1kirIrjeaKK'
-        ]);
-
-        User::create([
             'nickname' => 'Arek',
             'phone_number' => '123123123',
             'location_id' => '11',

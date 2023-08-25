@@ -194,6 +194,34 @@ class OfferController extends Controller
 
     public function destroy(Offer $offer)
     {
+        if(count($offer->likes) > 0) {
+            foreach($offer->likes as $like) {
+                $like->delete();
+            }
+        }
+
+        if($offer->rental) {
+            $offer->rental->delete();
+        }
+
+        if(count($offer->reviews) > 0) {
+            foreach($offer->reviews as $review) {
+                $review->delete();
+            }
+        }
+
+        if(count($offer->subscriptions) > 0) {
+            foreach($offer->subscriptions as $subscription) {
+                $subscription->delete();
+            }
+        }
+
+        if(count($offer->reports) > 0) {
+            foreach($offer->reports as $report) {
+                $report->delete();
+            }
+        }
+
         return $offer->delete();
     }
 
@@ -217,11 +245,6 @@ class OfferController extends Controller
         ]))->toOthers();
         $rental->save();
         return response(['message' => 'Wysłano wniosek oddania'], 200);
-    }
-
-    public function acceptReturn(Offer $offer)
-    {
-        return $offer;
     }
 
     public function toReturn()

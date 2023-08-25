@@ -54,6 +54,7 @@ Route::get('/user/{user}', [UserController::class, 'getUser']);
 
 Route::get('/user-offers/{user}', [OfferController::class, 'userOffers']);
 
+
 Route::middleware(['refresh', 'jwt.auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/auth', [AuthController::class, 'auth']);
@@ -67,7 +68,6 @@ Route::middleware(['refresh', 'jwt.auth'])->group(function () {
     Route::post('/return-product/{offer_id}', [OfferController::class, 'returnProduct']);
     Route::get('/to-return', [OfferController::class, 'toReturn']);
     Route::get('/rental-status/{offer}', [OfferController::class, 'rentalStatus']);
-    Route::post('/accept-return/{offer}', [OfferController::class, 'acceptReturn']);
     Route::put('/change-password', [AuthController::class, 'changePassword']);
     Route::put('/change-email', [AuthController::class, 'changeEmail']);
     Route::delete('/delete-account', [AuthController::class, 'deleteAccount']);
