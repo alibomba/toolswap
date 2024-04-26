@@ -1,0 +1,2 @@
+# Toolswap
+Toolswap is a platform for renting tools. User can create an account, post their own offers, edit them or subscribe to the offers so that they can receive a notification when the product is available again. There is a messaging feature between the users with the use of WebSockets technology. The graphic design is made by me in Figma. Frontend is built in ReactJS, backend in Laravel and the database is MySQL.
